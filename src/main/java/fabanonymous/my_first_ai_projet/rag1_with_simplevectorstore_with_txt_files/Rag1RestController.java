@@ -1,4 +1,4 @@
-package fabanonymous.my_first_ai_projet.rag;
+package fabanonymous.my_first_ai_projet.rag1_with_simplevectorstore_with_txt_files;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
@@ -17,18 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
  * The class below is based on the Getting started with RAG in Java & Spring AI at https://www.youtube.com/watch?v=4-rG2qsTrAs&t=3s
  */
 @RestController
-@RequestMapping("/rag")
-public class RagRestController {
+@RequestMapping("/rag1")
+public class Rag1RestController {
 
     private final ChatClient chatClient;
 
-    public RagRestController(ChatClient.Builder builder, VectorStore vectorStore) {
+    public Rag1RestController(ChatClient.Builder builder, VectorStore vectorStore) {
         this.chatClient = builder
                 .defaultAdvisors(new QuestionAnswerAdvisor(vectorStore,SearchRequest.defaults().build()))
                 .build();
     }
 
-    // http :8080/rag/faq message=="How many athletes compete in the Olympic Games Paris 2024"
+    // http :8080/rag1/faq message=="How many athletes compete in the Olympic Games Paris 2024"
     @GetMapping("/faq")
     public String faq(@RequestParam(value = "message", defaultValue = "How many athletes compete in the Olympic Games Paris 2024") String message) {
         return chatClient.prompt()

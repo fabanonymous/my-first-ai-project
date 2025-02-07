@@ -1,4 +1,4 @@
-package fabanonymous.my_first_ai_projet.rag;
+package fabanonymous.my_first_ai_projet.rag1_with_simplevectorstore_with_txt_files;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,14 +20,14 @@ import java.nio.file.Paths;
 import java.util.List;
 
 @Configuration
-public class RagConfiguration {
+public class Rag1Configuration {
     
-    private static final Logger log = LoggerFactory.getLogger(RagConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(Rag1Configuration.class);
 
     @Value("vectorstore.json")
     private String vectorStoreName;
 
-    @Value("classpath:/docs/rag/olympic-faq.txt")
+    @Value("classpath:/docs/rag1/olympic-faq.txt")
     private Resource faq;
 
     @Bean
@@ -51,7 +51,7 @@ public class RagConfiguration {
     }
 
     private File getVectorStoreFile() {
-        Path path = Paths.get("src", "main", "resources", "rag-vector-store");
+        Path path = Paths.get("src", "main", "resources", "rag1-simplevectorstore");
         String absolutePath = path.toFile().getAbsolutePath() + "/" + vectorStoreName;
         return new File(absolutePath);
     }
