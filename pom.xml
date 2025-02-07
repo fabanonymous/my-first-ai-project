@@ -15,7 +15,7 @@
 	<description>My First AI Project</description>
 	<url/>
 	<licenses>
-		<license/>
+		<license  />
 	</licenses>
 	<developers>
 		<developer/>
@@ -29,15 +29,23 @@
 	<properties>
 		<java.version>23</java.version>
 		<spring-ai.version>1.0.0-M5</spring-ai.version>
+		<maven.compiler.source>23</maven.compiler.source>
+		<maven.compiler.target>23</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-openai-spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-ollama-spring-boot-starter</artifactId>
 		</dependency>
 
 		<dependency>
