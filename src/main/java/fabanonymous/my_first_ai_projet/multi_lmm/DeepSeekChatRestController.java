@@ -9,22 +9,30 @@ import reactor.core.publisher.Flux;
 /**
  * See Dan Vega - Using Multiple LLMs in Java with Spring AI,
  * at https://www.youtube.com/watch?v=bK1MTlEDQvk&t=641s
- * Example of how to run Ollama with DeepSeek: ollama run deepseek-r1:1.5b
  */
 @RestController
-public class OllamaChatRestController {
+public class DeepSeekChatRestController {
 
     private final ChatClient chatClient;
 
-    public OllamaChatRestController(@Qualifier("ChatClientForOllama") ChatClient chatClient) {
+    public DeepSeekChatRestController(@Qualifier("ChatClientForDeepSeek") ChatClient chatClient) {
         this.chatClient = chatClient;
     }
 
-    //http --stream :8080/ollama-stream
-    @GetMapping("/ollama-stream")
-    public Flux<String> ollama() {
+    //http :8080/deepseek
+    @GetMapping("/deepseek")
+    public String deepseek() {
         return chatClient.prompt()
-                .user("Can you give an example of a leet style coding problem and answer it in Java")
+                .user("How many r's are in Strawberry")
+                .call()
+                .content();
+    }
+
+    //http --stream :8080/deepseek-stream
+    @GetMapping("/deepseek-stream")
+    public Flux<String> deepseekStream() {
+        return chatClient.prompt()
+                .user("How many r's are in Strawberry")
                 .stream()
                 .content();
     }

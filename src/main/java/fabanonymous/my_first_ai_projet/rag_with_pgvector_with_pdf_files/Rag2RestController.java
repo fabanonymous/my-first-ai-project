@@ -1,8 +1,7 @@
 package fabanonymous.my_first_ai_projet.rag_with_pgvector_with_pdf_files;
 
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
-import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,10 +18,8 @@ public class Rag2RestController {
 
     private final ChatClient chatClient;
 
-    public Rag2RestController(ChatClient.Builder builder, VectorStore vectorStore) {
-        this.chatClient = builder
-                .defaultAdvisors(new QuestionAnswerAdvisor(vectorStore))
-                .build();
+    public Rag2RestController(@Qualifier("ChatClientForRag2")ChatClient chatClient) {
+        this.chatClient = chatClient;
     }
 
     // http :8080/rag2/faq message=="How did the Federal Reserve's recent interest rate cut impact various asset classes according to the analysis"

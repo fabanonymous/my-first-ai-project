@@ -1,9 +1,7 @@
 package fabanonymous.my_first_ai_projet.rag1_with_simplevectorstore_with_txt_files;
 
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
-import org.springframework.ai.vectorstore.SearchRequest;
-import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,10 +20,8 @@ public class Rag1RestController {
 
     private final ChatClient chatClient;
 
-    public Rag1RestController(ChatClient.Builder builder, VectorStore vectorStore) {
-        this.chatClient = builder
-                .defaultAdvisors(new QuestionAnswerAdvisor(vectorStore,SearchRequest.defaults().build()))
-                .build();
+    public Rag1RestController(@Qualifier("ChatClientForRag1")ChatClient chatClient) {
+        this.chatClient = chatClient;
     }
 
     // http :8080/rag1/faq message=="How many athletes compete in the Olympic Games Paris 2024"

@@ -2,15 +2,11 @@ package fabanonymous.my_first_ai_projet;
 
 import fabanonymous.my_first_ai_projet.functions.WeatherConfigProperties;
 import fabanonymous.my_first_ai_projet.rag_with_pgvector_with_pdf_files.Rag2IngestionService;
-import org.springframework.ai.chat.client.ChatClient;
-//import org.springframework.ai.ollama.OllamaChatModel;
-import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 
 /**
  * See Dan Vega's videos on Youtube and its Github repos:
@@ -42,16 +38,4 @@ public class MyFirstAiProjetApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		rag2IngestionService.ingest();
 	}
-
-	@Bean
-	public ChatClient openAiChatClient(OpenAiChatModel chatModel) {
-		return ChatClient.create(chatModel);
-	}
-
-	/*
-	@Bean
-	public ChatClient ollamaChatClient(OllamaChatModel chatModel) {
-		return ChatClient.create(chatModel);
-	}
-	 */
 }

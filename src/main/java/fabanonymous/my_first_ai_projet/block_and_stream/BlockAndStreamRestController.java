@@ -17,7 +17,7 @@ public class BlockAndStreamRestController {
 
     private final ChatClient chatClient;
 
-    public BlockAndStreamRestController(@Qualifier("openAiChatClient") ChatClient chatClient) {
+    public BlockAndStreamRestController(@Qualifier("ChatClientForBlockAndStream") ChatClient chatClient) {
         this.chatClient = chatClient;
     }
 
@@ -32,7 +32,7 @@ public class BlockAndStreamRestController {
 
     //http --stream :8080/bs/stream
     @GetMapping("/stream")
-    public Flux<String> deepseekStream() {
+    public Flux<String> stream() {
         return chatClient.prompt()
                 .user("How many r's are in Strawberry")
                 .stream()

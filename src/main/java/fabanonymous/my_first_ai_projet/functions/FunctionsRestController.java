@@ -1,6 +1,7 @@
 package fabanonymous.my_first_ai_projet.functions;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,11 +17,8 @@ public class FunctionsRestController {
 
     private final ChatClient chatClient;
 
-    public FunctionsRestController(ChatClient.Builder builder) {
-        this.chatClient = builder
-                .defaultSystem("You are a helpful AI Assistant answering questions about cities around the world.")
-                .defaultFunctions("currentWeatherFunction")
-                .build();
+    public FunctionsRestController(@Qualifier("ChatClientForFunctions")ChatClient chatClient) {
+        this.chatClient = chatClient;
     }
 
     // http :8080/functions/cities message=="What is the weather currently at Paris, France ?"
