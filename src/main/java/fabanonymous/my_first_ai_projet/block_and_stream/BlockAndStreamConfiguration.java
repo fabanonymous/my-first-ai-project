@@ -1,7 +1,6 @@
 package fabanonymous.my_first_ai_projet.block_and_stream;
 
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -9,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 public class BlockAndStreamConfiguration {
 
     @Bean(name="ChatClientForBlockAndStream")
-    public ChatClient openAiChatClient(OpenAiChatModel chatModel) {
-        return ChatClient.builder(chatModel)
+    public ChatClient chatClient(ChatClient.Builder builder) {
+        return builder
                 .build();
     }
 }

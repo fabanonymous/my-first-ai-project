@@ -6,8 +6,6 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.embedding.EmbeddingModel;
-import org.springframework.ai.openai.OpenAiChatModel;
-import org.springframework.ai.openai.OpenAiEmbeddingModel;
 import org.springframework.ai.reader.TextReader;
 import org.springframework.ai.transformer.splitter.TextSplitter;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
@@ -37,15 +35,15 @@ public class Rag1Configuration {
     private Resource faq;
 
     @Bean(name="ChatClientForRag1")
-    public ChatClient openAiChatClient(OpenAiChatModel chatModel, VectorStore vectorStore) {
-        return ChatClient.builder(chatModel)
+    public ChatClient chatClient(ChatClient.Builder builder, VectorStore vectorStore) {
+        return builder
                 .defaultAdvisors(new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults().build()))
                 .build();
     }
 
 
     @Bean
-    SimpleVectorStore simpleVectorStore(OpenAiEmbeddingModel embeddingModel) throws IOException {
+    SimpleVectorStore simpleVectorStore(EmbeddingModel embeddingModel) throws IOException {
         var simpleVectorStore = new SimpleVectorStore(embeddingModel);
         var vectorStoreFile = getVectorStoreFile();
         if (vectorStoreFile.exists()) {

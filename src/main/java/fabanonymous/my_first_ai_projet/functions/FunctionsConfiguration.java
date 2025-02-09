@@ -1,7 +1,6 @@
 package fabanonymous.my_first_ai_projet.functions;
 
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
@@ -24,8 +23,8 @@ public class FunctionsConfiguration {
     }
 
     @Bean(name="ChatClientForFunctions")
-    public ChatClient openAiChatClient(OpenAiChatModel chatModel) {
-        return ChatClient.builder(chatModel)
+    public ChatClient chatClient(ChatClient.Builder builder) {
+        return builder
                 .defaultSystem("You are a helpful AI Assistant answering questions about cities around the world.")
                 .defaultFunctions("currentWeatherFunction")
                 .build();

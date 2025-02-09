@@ -25,6 +25,7 @@ public class Rag1RestController {
     }
 
     // http :8080/rag1/faq message=="How many athletes compete in the Olympic Games Paris 2024"
+    // http :8080/rag1/faq message=="Where will the 2028 and 2032 Olympic Games be held?"
     @GetMapping("/faq")
     public String faq(@RequestParam(value = "message", defaultValue = "How many athletes compete in the Olympic Games Paris 2024") String message) {
         return chatClient.prompt()
