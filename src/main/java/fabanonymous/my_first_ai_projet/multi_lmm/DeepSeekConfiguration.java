@@ -1,6 +1,7 @@
 package fabanonymous.my_first_ai_projet.multi_lmm;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 public class DeepSeekConfiguration {
 
     @Bean(name="ChatClientForDeepSeek")
-    public ChatClient chatClient(ChatClient.Builder builder) {
-        return builder
+    public ChatClient chatClient(OpenAiChatModel chatModel) {
+        return ChatClient.builder(chatModel)
                 .build();
     }
 }

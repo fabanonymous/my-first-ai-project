@@ -14,6 +14,7 @@ import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.ai.vectorstore.observation.VectorStoreObservationConvention;
 import org.springframework.ai.vectorstore.pgvector.PgVectorStore;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +33,7 @@ public class Rag2IngestionService {
     @Value("classpath:/docs/rag2/article_thebeatoct2024.pdf")
     private Resource marketPDF;
 
-    public Rag2IngestionService(VectorStore vectorStore) {
+    public Rag2IngestionService(@Qualifier("VectorStoreForRag2") VectorStore vectorStore) {
         this.vectorStore = vectorStore;
     }
 

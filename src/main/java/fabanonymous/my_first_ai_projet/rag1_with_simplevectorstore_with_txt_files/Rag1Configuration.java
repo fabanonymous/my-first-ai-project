@@ -5,13 +5,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 import org.springframework.ai.document.Document;
-import org.springframework.ai.embedding.EmbeddingModel;
+import org.springframework.ai.mistralai.MistralAiChatModel;
+import org.springframework.ai.mistralai.MistralAiEmbeddingModel;
 import org.springframework.ai.reader.TextReader;
 import org.springframework.ai.transformer.splitter.TextSplitter;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,15 +37,14 @@ public class Rag1Configuration {
     private Resource faq;
 
     @Bean(name="ChatClientForRag1")
-    public ChatClient chatClient(ChatClient.Builder builder, VectorStore vectorStore) {
-        return builder
+    public ChatClient chatClient(MistralAiChatModel chatModel, @Qualifier("VectorStoreForRag1") VectorStore vectorStore) {
+        return ChatClient.builder(chatModel)
                 .defaultAdvisors(new QuestionAnswerAdvisor(vectorStore, SearchRequest.defaults().build()))
                 .build();
     }
 
-
-    @Bean
-    SimpleVectorStore simpleVectorStore(EmbeddingModel embeddingModel) throws IOException {
+    @Bean(name="VectorStoreForRag1")
+    SimpleVectorStore simpleVectorStore(MistralAiEmbeddingModel embeddingModel) throws IOException {
         var simpleVectorStore = new SimpleVectorStore(embeddingModel);
         var vectorStoreFile = getVectorStoreFile();
         if (vectorStoreFile.exists()) {
